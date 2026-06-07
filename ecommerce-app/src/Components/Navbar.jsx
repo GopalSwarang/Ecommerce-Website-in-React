@@ -1,4 +1,5 @@
 import "./Navbar.css"
+import { Link } from "react-router-dom"
 
 function Navbar(props) {
 
@@ -6,15 +7,15 @@ function Navbar(props) {
 
         <nav>
 
-            <h2>
+            <h2>My Store</h2>
 
-                My Store
+            <div className="nav-links">
 
-            </h2>
+                <Link to="/">Home</Link>
 
-            <div>
+                <Link to="/cart">Cart ({props.count})</Link>
 
-                Cart: {props.count}
+                <Link to="/checkout">Checkout</Link>
 
             </div>
 

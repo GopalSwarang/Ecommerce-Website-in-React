@@ -1,75 +1,46 @@
 function Cart(props) {
 
-    return (
+return (
 
-        <div className="cart-container">
+<div className="cart-container">
 
-            <h2>
+<h2>Cart Items</h2>
 
-                Cart Items
+{props.items.length === 0 ? (
 
-            </h2>
+<p>No items in cart</p>
 
-            {
+) : (
 
-                props.items.length === 0 ?
+props.items.map((item, index) => (
 
-                    (
+<div className="cart-item" key={index}>
 
-                        <p>
+<p>
+{item.title} × {item.quantity} - ₹{item.price * item.quantity}
+</p>
 
-                            No items in cart
+<button onClick={() => props.removeItem(index)}>
+Remove
+</button>
 
-                        </p>
+</div>
 
-                    )
+))
 
-                    :
+)}
 
-                    (
+{props.items.length > 0 && (
 
-                        props.items.map((item, index) => {
+<h3 style={{ marginTop: "20px" }}>
+Total: ₹{props.total}
+</h3>
 
-                            return (
+)}
 
-                                <div
-                                    className="cart-item"
-                                    key={index}
-                                >
+</div>
 
-                                    <p>
-
-                                        {item.title}
-
-                                        -
-
-                                        ₹{item.price}
-
-                                    </p>
-
-                                    <button
-
-                                        onClick={() => props.removeItem(index)}
-
-                                    >
-
-                                        Remove
-
-                                    </button>
-
-                                </div>
-
-                            )
-
-                        })
-
-                    )
-
-            }
-
-        </div>
-
-    )
+)
 
 }
 
