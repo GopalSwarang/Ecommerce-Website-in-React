@@ -3,60 +3,60 @@ import { useNavigate } from "react-router-dom"
 
 function Signup() {
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
 
-const [email, setEmail] = useState("")
-const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-function handleSignup(e) {
-e.preventDefault()
+    function handleSignup(e) {
+        e.preventDefault()
 
-const user = {
-email,
-password
-}
+        const user = {
+            email,
+            password
+        }
 
-localStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("user", JSON.stringify(user))
 
-alert("Account created!")
+        alert("Account created!")
 
-navigate("/login")
+        navigate("/login")
 
-}
+    }
 
-return (
+    return (
 
-<div className="auth-container">
+        <div className="auth-container">
 
-<h2>Signup</h2>
+            <h2>Signup</h2>
 
-<form onSubmit={handleSignup}>
+            <form onSubmit={handleSignup}>
 
-<input
-type="email"
-placeholder="Email"
-value={email}
-onChange={(e) => setEmail(e.target.value)}
-/>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-<input
-type="password"
-placeholder="Password"
-value={password}
-onChange={(e) => setPassword(e.target.value)}
-/>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-<button type="submit">Signup</button>
+                <button type="submit">Signup</button>
 
-</form>
+            </form>
 
-<p onClick={() => navigate("/login")}>
-Already have account
-</p>
+            <p onClick={() => navigate("/login")}>
+                Already have account
+            </p>
 
-</div>
+        </div>
 
-)
+    )
 
 }
 

@@ -3,63 +3,63 @@ import { useNavigate } from "react-router-dom"
 
 function Login() {
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
 
-const [email, setEmail] = useState("")
-const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-function handleLogin(e) {
-e.preventDefault()
+    function handleLogin(e) {
+        e.preventDefault()
 
-const user = JSON.parse(localStorage.getItem("user"))
+        const user = JSON.parse(localStorage.getItem("user"))
 
-if (user && user.email === email && user.password === password) {
+        if (user && user.email === email && user.password === password) {
 
-localStorage.setItem("auth", "true")
+            localStorage.setItem("auth", "true")
 
-navigate("/admin")
+            navigate("/admin")
 
-} else {
+        } else {
 
-alert("Invalid credentials")
+            alert("Invalid credentials")
 
-}
+        }
 
-}
+    }
 
-return (
+    return (
 
-<div className="auth-container">
+        <div className="auth-container">
 
-<h2>Login</h2>
+            <h2>Login</h2>
 
-<form onSubmit={handleLogin}>
+            <form onSubmit={handleLogin}>
 
-<input
-type="email"
-placeholder="Email"
-value={email}
-onChange={(e) => setEmail(e.target.value)}
-/>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-<input
-type="password"
-placeholder="Password"
-value={password}
-onChange={(e) => setPassword(e.target.value)}
-/>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-<button type="submit">Login</button>
+                <button type="submit">Login</button>
 
-</form>
+            </form>
 
-<p onClick={() => navigate("/signup")}>
-Create account
-</p>
+            <p onClick={() => navigate("/signup")}>
+                Create account
+            </p>
 
-</div>
+        </div>
 
-)
+    )
 
 }
 

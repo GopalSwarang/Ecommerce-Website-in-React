@@ -159,14 +159,16 @@ function App() {
         />
       </Routes>
 
+
+
     </>
 
   )
 
 }
-function deleteProduct(id){
+function deleteProduct(id) {
 
-setProducts(products.filter(item => item.id !== id))
+  setProducts(products.filter(item => item.id !== id))
 
 }
 

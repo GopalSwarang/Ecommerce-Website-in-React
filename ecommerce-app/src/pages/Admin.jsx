@@ -1,32 +1,166 @@
-import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
-function Admin() {
+function Admin({
 
-const navigate = useNavigate()
+    products,
 
-function logout() {
+    setProducts,
 
-localStorage.removeItem("auth")
+    deleteProduct
 
-navigate("/login")
+}) {
 
-}
+    const [title, setTitle] = useState("")
+    const [price, setPrice] = useState("")
+    const [image, setImage] = useState("")
 
-return (
+    function addProduct(e) {
 
-<div className="admin-container">
+        e.preventDefault()
 
-<h1>Admin Panel</h1>
+        const newProduct = {
 
-<p>Welcome Admin 👨‍💻</p>
+            id: Date.now(),
 
-<button onClick={logout}>
-Logout
-</button>
+            title,
 
-</div>
+            price: Number(price),
 
-)
+            image
+
+        }
+
+        setProducts(
+
+            [
+
+                ...products,
+
+                newProduct
+
+            ]
+
+        )
+
+        setTitle("")
+        setPrice("")
+        setImage("")
+
+    }
+
+    return (
+
+        <div className="admin-container">
+
+            <h1>
+
+                Admin Panel
+
+            </h1>
+
+            <form
+
+                className="admin-form"
+
+                onSubmit={addProduct}
+
+            >
+
+                <input
+
+                    placeholder="Title"
+
+                    value={title}
+
+                    onChange={(e) =>
+
+                        setTitle(e.target.value)
+
+                    }
+
+                />
+
+                <input
+
+                    placeholder="Price"
+
+                    type="number"
+
+                    value={price}
+
+                    onChange={(e) =>
+
+                        setPrice(e.target.value)
+
+                    }
+
+                />
+
+                <input
+
+                    placeholder="Image URL"
+
+                    value={image}
+
+                    onChange={(e) =>
+
+                        setImage(e.target.value)
+
+                    }
+
+                />
+
+                <button>
+
+                    Add Product
+
+                </button>
+
+            </form>
+
+            {
+
+                products.map(item => (
+
+                    <div
+
+                        key={item.id}
+
+                        className="admin-product"
+
+                    >
+
+                        <p>
+
+                            {item.title}
+
+                            ₹{item.price}
+
+                        </p>
+
+                        <button
+
+                            onClick={() =>
+
+                                deleteProduct(item.id)
+
+                            }
+
+                        >
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                ))
+
+            }
+
+        </div>
+
+    )
 
 }
 
