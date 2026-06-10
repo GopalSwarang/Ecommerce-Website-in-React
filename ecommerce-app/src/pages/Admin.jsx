@@ -1,50 +1,77 @@
 import { useState } from "react"
 
 function Admin({
-
     products,
-
     setProducts,
-
     deleteProduct
-
 }) {
 
     const [title, setTitle] = useState("")
     const [price, setPrice] = useState("")
     const [image, setImage] = useState("")
 
+    const [editId, setEditId] = useState(null)
+
     function addProduct(e) {
 
         e.preventDefault()
 
-        const newProduct = {
+        if (editId) {
 
-            id: Date.now(),
+            const updatedProducts = products.map(item =>
 
-            title,
+                item.id === editId
 
-            price: Number(price),
+                    ? {
+                        ...item,
+                        title,
+                        price: Number(price),
+                        image
+                    }
 
-            image
+                    : item
+
+            )
+
+            setProducts(updatedProducts)
+
+            setEditId(null)
+
+        } else {
+
+            const newProduct = {
+
+                id: Date.now(),
+
+                title,
+
+                price: Number(price),
+
+                image
+
+            }
+
+            setProducts([
+                ...products,
+                newProduct
+            ])
 
         }
-
-        setProducts(
-
-            [
-
-                ...products,
-
-                newProduct
-
-            ]
-
-        )
 
         setTitle("")
         setPrice("")
         setImage("")
+    }
+
+    function editProduct(product) {
+
+        setEditId(product.id)
+
+        setTitle(product.title)
+
+        setPrice(product.price)
+
+        setImage(product.image)
 
     }
 
@@ -52,105 +79,78 @@ function Admin({
 
         <div className="admin-container">
 
-            <h1>
-
-                Admin Panel
-
-            </h1>
+            <h1>Admin Panel</h1>
 
             <form
-
                 className="admin-form"
-
                 onSubmit={addProduct}
-
             >
 
                 <input
-
-                    placeholder="Title"
-
+                    type="text"
+                    placeholder="Product Title"
                     value={title}
-
-                    onChange={(e) =>
-
-                        setTitle(e.target.value)
-
-                    }
-
+                    onChange={(e) => setTitle(e.target.value)}
                 />
 
                 <input
-
-                    placeholder="Price"
-
                     type="number"
-
+                    placeholder="Price"
                     value={price}
-
-                    onChange={(e) =>
-
-                        setPrice(e.target.value)
-
-                    }
-
+                    onChange={(e) => setPrice(e.target.value)}
                 />
 
                 <input
-
+                    type="text"
                     placeholder="Image URL"
-
                     value={image}
-
-                    onChange={(e) =>
-
-                        setImage(e.target.value)
-
-                    }
-
+                    onChange={(e) => setImage(e.target.value)}
                 />
 
-                <button>
+                <button type="submit">
 
-                    Add Product
+                    {editId ? "Update Product" : "Add Product"}
 
                 </button>
 
             </form>
+
+            <h2>Products</h2>
 
             {
 
                 products.map(item => (
 
                     <div
-
                         key={item.id}
-
                         className="admin-product"
-
                     >
 
-                        <p>
+                        <div>
 
-                            {item.title}
+                            <p>{item.title}</p>
 
-                            ₹{item.price}
+                            <p>₹{item.price}</p>
 
-                        </p>
+                        </div>
 
-                        <button
+                        <div>
 
-                            onClick={() =>
+                            <button
+                                className="edit-btn"
+                                onClick={() => editProduct(item)}
+                            >
+                                Edit
+                            </button>
 
-                                deleteProduct(item.id)
+                            <button
+                                className="delete-btn"
+                                onClick={() => deleteProduct(item.id)}
+                            >
+                                Delete
+                            </button>
 
-                            }
-
-                        >
-
-                            Delete
-
-                        </button>
+                        </div>
 
                     </div>
 
